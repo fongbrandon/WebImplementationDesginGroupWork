@@ -23,4 +23,6 @@ A digital library management system created using PHP to manage and store a high
 
 
 ## ⚡ How to use?
-clone git repo ``
+1. Install a PHP development environment <a href="https://www.apachefriends.org/index.html">XAMPP</a> or <a href="https://www.apachefriends.org/index.html">LAMP</a> or  <a href="https://www.apachefriends.org/index.html">WAMP</a>
+2. Clone git repo `https://github.com/fongbrandon/WebImplementationDesginGroupWork.git`
+3. Start server and enter `localhost\WebImplementationDesginGroupWork\index.php`
