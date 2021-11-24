@@ -7,7 +7,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "HighSchoolDB";
+$dbname = "HighSchoolBooks_DB";
 
 // Create connection
 $connection = mysqli_connect($servername, $username, $password, $dbname);

@@ -1,3 +1,6 @@
+<!-- Displays total register admin,patron, librarians, pending requests.
+-->
+
 <?php 
     include('security.php');
     include('includes/header.php');
@@ -28,7 +31,7 @@
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
                             <?php
                              require('database/dbconfig.php');
-                              $query="SELECT id FROM Patrons ORDER BY id";
+                              $query="SELECT cardID FROM LibraryCard ORDER BY cardID";
                               $query_run = mysqli_query($connection, $query);
                               $row = mysqli_num_rows($query_run);
                               echo $row;
@@ -54,7 +57,7 @@
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
                         <?php
                              require('database/dbconfig.php');
-                              $query="SELECT id FROM Librarian ORDER BY id";
+                              $query="SELECT libID FROM Librarian WHERE Type='Librarian' ORDER BY libID";
                               $query_run = mysqli_query($connection, $query);
                               $row = mysqli_num_rows($query_run);
                               echo $row;
@@ -80,7 +83,7 @@
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
                         <?php
                              require('database/dbconfig.php');
-                              $query="SELECT id FROM Admin ORDER BY id";
+                              $query="SELECT libID FROM Librarian WHERE Type='Admin' ORDER BY libID";
                               $query_run = mysqli_query($connection, $query);
                               $row = mysqli_num_rows($query_run);
                               echo $row;
@@ -106,7 +109,7 @@
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
                         <?php
                              require('database/dbconfig.php');
-                              $query="SELECT id FROM Requests ORDER BY id";
+                              $query="SELECT ISBN FROM processBook ORDER BY ISBN";
                               $query_run = mysqli_query($connection, $query);
                               $row = mysqli_num_rows($query_run);
                               echo $row;

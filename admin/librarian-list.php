@@ -1,3 +1,5 @@
+<!-- List all Registered Librarians in Library -->
+
 <?php  
 include('security.php');
 include('includes/header.php');
@@ -20,24 +22,24 @@ include('includes/navbar.php');
    
      //get info
         $libID = test_input($_POST['id']);
-        $firstname = test_input($_POST['fname']);
-        $lastname = test_input($_POST['lname']);
+        $name = test_input($_POST['name']);
         $email = test_input($_POST['email']);
+        $usertype=($_POST['usertype']);
         $password = test_input($_POST['password']); 
 
         session_start();
-        $query = "INSERT TO PatronTable (libID, firstName, lastName, email, password) VALUES('$libID','$firstname', '$lastname',' $email','$password')";
+        $query = "INSERT TO Librarian(libID, Name, Email, Password, Type) VALUES('$libID','$name',' $email','$password', '$usertype')";
         $query_run=mysqli_query($connection, $query);
         
     
     
         if($query_run){
         echo"Added";
-        header('Location: patron-list.php');
+        header('Location: librarian-list.php');
 
     }else{
         echo"Not Added";
-        header('Location: patron-list.php');
+        header('Location: librarian-list.php');
     }
      mysqli_close($connection);
 }
@@ -71,12 +73,8 @@ include('includes/navbar.php');
                                 <input type="text" name="id" class="form-control" >
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">First Name</label>
-                                <input type="text" name="fname" class="form-control" >
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Last Name</label>
-                                <input type="text" name="lname" class="form-control">
+                                <label class="form-label">Name</label>
+                                <input type="text" name="name" class="form-control" >
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
@@ -86,6 +84,9 @@ include('includes/navbar.php');
                                 <label class="form-label">Password</label>
                                 <input type="password" name="password" class="form-control">
                             </div>
+                            <!-- Default user type -->
+                            <input type="hidden" name="usertype" value="Librarian">
+
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary" name="addlibrarian_btn">Save changes</button>
@@ -100,8 +101,7 @@ include('includes/navbar.php');
         <div class="card-body">
             <div class="table-responsive">
                 <?php
-                    include_once 'code.php';
-                    $result = mysqli_query($conn,"SELECT * FROM Librarian");
+                    $result = mysqli_query($conn,"SELECT * FROM Librarian WHERE Type='Librarian'");
                 ?>
                 <?php
                 if (mysqli_num_rows($result) > 0) {
@@ -110,8 +110,7 @@ include('includes/navbar.php');
                     <thead>
                         <tr>
                             <th>Lib ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
+                            <th>Name</th>
                             <th>Email</th>
                             <th>EDIT</th>
                             <th>DELETE</th>
@@ -125,19 +124,18 @@ include('includes/navbar.php');
                         ?>
 
                         <tr>
-                            <td><?php echo $row["Id"];?></td>
-                            <td><?php echo $row["firstname"];?></td>
-                            <td><?php echo $row["lastname"];?></td>
-                            <td><?php echo $row["email"];?></td>
+                            <td><?php echo $row["libID"];?></td>
+                            <td><?php echo $row["Name"];?></td>
+                            <td><?php echo $row["Email"];?></td>
                             <td> 
                                 <form action="code.php" method="post">
-                                    <input type = "hidden" name="delete_id" value ="<?php echo $row['id'];?>">
+                                    <input type = "hidden" name="delete_id" value ="<?php echo $row['libID'];?>">
                                         <button type ="submit" name="delete_btn" class="btn btn-success">EDIT</button>
                                 </form>
                             </td>
                             <td>
                                 <form action="code.php" method="post">
-                                    <input type = "hidden" name="delete_id" value ="<?php echo $row['id'];?>">
+                                    <input type = "hidden" name="delete_id" value ="<?php echo $row['libID'];?>">
                                     <button type ="submit" name="delete_btn" class="btn btn-danger">DELETE</button>
                                 </form>
                             </td>  

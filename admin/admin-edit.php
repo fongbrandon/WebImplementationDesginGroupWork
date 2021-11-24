@@ -1,3 +1,4 @@
+<!-- Updare an Administrator Profile  -->
 <?php
 
 include("includes/header.php");
@@ -24,23 +25,15 @@ if(isset($_POST['admin-update-btn'])&& $_SERVER['REQUEST_METHOD'] == "POST")
            return $data;
        }
 
-       if(!empty($_POST['email']) && filter_var($email, FILTER_VALIDATE_EMAIL)){
-        $email = test_input($_POST["email"]);
-       }else {
-        $emailErr = "Invalid email format";
-        }
-
-        if(!empty($_POST['password']) && preg_match("/^[a-zA-Z-' ]*$/",$password)){
-        $password = test_input($_POST["password"]);
-        }else {
-        $passwordErr = "Only letters and spaces";
-        }
-
         $email =$_POST['email'];
         $password = $_POST['password'];
+        
+        if(!empty($_POST['usertype'])){
+            $usertype = $_POST['usertype'];
+        }
 
 
-        $sql="UPDATE AdminTable SET email='$email', password='$password' WHERE id='$id'";
+        $sql="UPDATE Librarian SET Email='$Email', Password='$password' WHERE libID='$id'";
         $sql_run = mysqli_qury($connection, $query);
         if($sql_run){
             echo "Admin Profile has been updated";
@@ -67,19 +60,14 @@ if(isset($_POST['admin-update-btn'])&& $_SERVER['REQUEST_METHOD'] == "POST")
     if(isset($_POST['edit_btn'])){
         $id= $_POST['edit_id'];
 
-        $query = "SELECT * FROM  AdminTable WHERE id='$id'";
+        $query = "SELECT * FROM  Librarian WHERE libID='$id'";
         $query_run = mysqli_query($connection, $query);
         foreach($query_run as $row){
             ?>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                 <div class="mb-3">
-                    <label class="form-label">First Name</label> 
-                    <input type="disable" name="fname" class="form-control" value="<?php echo $row['firstname'] ?>">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Last Name</label>
-                    <input type="disable" name="lname" class="form-control" value="<?php echo $row['lastname'] ?>" >
-                </div>
+                    <label class="form-label">Name</label> 
+                    <input type="disable" name="name" class="form-control" value="<?php echo $row['firstname'] ?>">
                 <div class="mb-3">
                     <label class="form-label">Email</label><?php echo $emailErr ;?>
                     <input type="text" name="email" class="form-control" value="<?php echo $row['email'] ?>">
@@ -87,6 +75,15 @@ if(isset($_POST['admin-update-btn'])&& $_SERVER['REQUEST_METHOD'] == "POST")
                 <div class="mb-3">
                     <label class="form-label">Password</label>
                     <input type="password" name="password" class="form-control" value="<?php echo $row['password'] ?>">
+                </div>
+                <div class="btn-group">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                    Role
+                </button>
+                <select name="usertype" class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside">
+                    <option value="Admin" selected class="dropdown-item">Admin</option>
+                    <option value="Librarian" class="dropdown-item">Librarian</option>
+                </select>
                 </div>
                 <div class="modal-footer">
                     <a role="button" class="btn btn-danger" href="admin-list.php">Cancel</a>

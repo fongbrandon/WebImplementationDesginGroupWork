@@ -18,8 +18,7 @@ include('includes/navbar.php');
             <div class="card-body">
                 <div class="table-responsive">
                     <?php
-                        include_once 'code.php';
-                        $result = mysqli_query($conn,"SELECT * FROM categoryTable");
+                        $result = mysqli_query($conn,"SELECT SubjectArea, Quantity FROM Book");
                     ?>
                     <?php
                         if (mysqli_num_rows($result) > 0) {
@@ -38,8 +37,8 @@ include('includes/navbar.php');
                                 while($row = mysqli_fetch_array($result)) {
                                 ?>
                                 <tr>
-                                    <td><?php echo $row["catNate"];?></td>
-                                    <td><?php echo $row["book_quantity"];?></td>
+                                    <td><?php echo $row["SubjectArea"];?></td>
+                                <td><?php echo $row["Quantity"];?></td>
                                 </tr>
                             </tbody>
                             <?php

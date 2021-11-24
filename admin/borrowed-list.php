@@ -1,3 +1,5 @@
+<!-- List all current books borrowed from library -->
+
 <?php  
 include('security.php');
 include('includes/header.php');
@@ -17,8 +19,8 @@ include('includes/navbar.php');
             <div class="table-responsive">
                 <div class="card-body">
                     <?php
-                        include_once 'code.php';// file where db connection located
-                        $result = mysqli_query($conn,"SELECT * FROM borrowedBookTable"); //query statement
+                        
+                        $result = mysqli_query($conn,"SELECT cardID, ISBN, Date FROM BorrowBook"); //query statement
                         if (mysqli_num_rows($result) > 0) { // check if db has data
                     ?>
                     
@@ -26,13 +28,9 @@ include('includes/navbar.php');
                             <thead>
 
                                 <tr>
-                                    <th>BookCover</th>
+                                    <th>Card#</th>
                                     <th>ISBN</th>
-                                    <th>Title</th>
-                                    <th>Author</th>
-                                    <th>Year</th>
-                                    <th>Subject Area</th>
-                                    <th>Quantity</th>
+                                    <th>Date</th>
                                 </tr>
                                 
                             </thead>
@@ -43,13 +41,9 @@ include('includes/navbar.php');
                                 while($row = mysqli_fetch_array($result)) { //fetch data
                                 ?>
                                 <tr>
-                                    <td> <img class="rounded-circle" src='<?php echo $row["book_cover"];?>' alt="..."></td>
+                                    <td><?php echo $row["cardID"];?></td>
                                     <td><?php echo $row["ISBN"];?></td>
-                                    <td><?php echo $row["Title"];?></td>
-                                    <td><?php echo $row["Author"];?></td>
-                                    <td><?php echo $row["year"];?></td>
-                                    <td><?php echo $row["subject"];?></td>
-                                    <td><?php echo $row["quantity"];?></td>
+                                    <td><?php echo $row["Date"];?></td>
                                 </tr> 
                             </tbody>
                             <?php

@@ -1,3 +1,6 @@
+<!-- Checks if user is logged in
+Restrict user from manual redirection
+-->
 <?php
 
 session_start();
@@ -9,7 +12,7 @@ session_start();
 //     header("Location: database/dbconfig.php");
 // }
 
-//check username is empty
+
 if(!$_SESSION['username']){
     header('Location: admin-login.php');
 }

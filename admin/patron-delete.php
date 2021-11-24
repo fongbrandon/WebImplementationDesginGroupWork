@@ -10,14 +10,14 @@ if(isset($_POST['delete-btn'])&& $_SERVER['REQUEST_METHOD'] == "POST")
     {
         $id= $_POST['delete_id'];
 
-        $sql="DELETE FROM patronTable  WHERE id='$id'";
+        $sql="DELETE FROM LibraryCard  WHERE cardID='$id'";
         $sql_run = mysqli_qury($connection, $query);
         if($sql_run){
             echo "Patron Profile has been deleted";
-            header('Location: admin-list.php');
+            header('Location: patron-list.php');
         }else{
             echo "Patron Profile has NOT been deleted";
-            header('Location: admin-list.php');
+            header('Location: patron-list.php');
         }
 
 }
@@ -35,30 +35,27 @@ if(isset($_POST['delete-btn'])&& $_SERVER['REQUEST_METHOD'] == "POST")
                 
     <?php
     //connect to db in code.php
-    require('database/dbconfig.php');
+   // require('database/dbconfig.php');
     if(isset($_POST['delete_btn'])){
         $id= $_POST['delete_id'];
 
-        $query = "SELECT * FROM  AdminTable WHERE id='$id'";
+        $query = "SELECT * FROM  LibraryCard WHERE cardID='$id'";
         $query_run = mysqli_query($connection, $query);
         foreach($query_run as $row){
             ?>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                <div class="mb-3">
-                    <label class="form-label">First Name</label> 
-                    <input type="disable" name="fname" class="form-control" value="<?php echo $row['firstname'] ?>">
+            <div class="mb-3">
+                    <label class="form-label">Card ID</label> 
+                    <input type="disable" name="id" class="form-control" value="<?php echo $row['cardID'] ?>">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Last Name</label>
-                    <input type="disable" name="lname" class="form-control" value="<?php echo $row['lastname'] ?>" >
+                    <label class="form-label">Name</label> 
+                    <input type="disable" name="fname" class="form-control" value="<?php echo $row['Name'] ?>">
                 </div>
+
                 <div class="mb-3">
-                    <label class="form-label">Email</label><?php echo $emailErr ;?>
-                    <input type="disable" name="email" class="form-control" value="<?php echo $row['email'] ?>">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <input type="disable" name="password" class="form-control" value="<?php echo $row['password'] ?>">
+                    <label class="form-label">Address</label>
+                    <input type="disable" name="address" class="form-control"  value="<?php echo $row['Address'] ?>">
                 </div>
                 <div class="modal-footer">
                     <a role="button" class="btn btn-danger" href="patron-list.php">Cancel</a>
